@@ -1,0 +1,6 @@
+@CXnone.ApiService_HostAddress = http://localhost:5156
+
+GET {{CXnone.ApiService_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
