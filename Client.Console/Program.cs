@@ -6,10 +6,10 @@ namespace Client
     {
         static void Main(string[] args)
         {
-            var httpClient = new HttpClient();
-            httpClient.BaseAddress = new Uri("https://localhost:7154/");//поміняти
-
-            var crmClient = new CrmApiClient(httpClient);
+            var crmHttpClient = new HttpClient();
+            var crm_url = Environment.GetEnvironmentVariable("CRM_API_URL");
+            crmHttpClient.BaseAddress = new Uri(crm_url);//поміняти
+            var crmClient = new CrmApiClient(crmHttpClient);
             var tickets =  crmClient.GetTicketsAsync().Result;
 
             foreach (var ticket in tickets)
@@ -17,9 +17,10 @@ namespace Client
                 Console.WriteLine($"Отримано тікет: {ticket.Subject}");
             }
 
-            httpClient.BaseAddress = new Uri("https://localhost:7267/");//поміняти
-
-            var cxoneClient = new CxoneApiClient(httpClient);
+            var cxnone_url = Environment.GetEnvironmentVariable("CXNONE_API_URL");
+            var cxnoneHttpClient = new HttpClient();
+            cxnoneHttpClient.BaseAddress = new Uri(cxnone_url);//поміняти
+            var cxoneClient = new CxoneApiClient(cxnoneHttpClient);
 
             foreach (var ticket in tickets)
             {
@@ -32,7 +33,9 @@ namespace Client
                     : $"Помилка при надсиланні тікета {ticket.Id}");
             }
 
-        }
+        }      
+        
+        
 
     }
 }

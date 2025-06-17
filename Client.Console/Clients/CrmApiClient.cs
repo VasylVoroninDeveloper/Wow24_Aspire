@@ -19,15 +19,16 @@ namespace Client.Clients
 
         public async Task<List<CrmTicket>> GetTicketsAsync()
         {
-            var response = await _httpClient.GetAsync("/api/tickets");
-            response.EnsureSuccessStatusCode();
+            var response = await _httpClient.GetAsync("/TicketData/GetTickets");
 
-            var json = await response.Content.ReadAsStringAsync();
+            var responseBody = await response.Content.ReadAsStringAsync();
+            Console.WriteLine("Received response: {StatusCode} - {ResponseBody}", response.StatusCode, responseBody);
+
             var jsonOptions = new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true
             };
-            return JsonSerializer.Deserialize<List<CrmTicket>>(json, jsonOptions) ?? new List<CrmTicket>();
+            return JsonSerializer.Deserialize<List<CrmTicket>>(responseBody, jsonOptions) ?? new List<CrmTicket>();
         }
 
     }

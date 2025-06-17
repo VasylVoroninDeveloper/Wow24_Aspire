@@ -1,4 +1,5 @@
 
+using CXnone.ApiService.Middleware;
 using Serilog;
 
 namespace CXnone.ApiService;
@@ -8,6 +9,11 @@ public class Program
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
+
+        builder.WebHost.ConfigureKestrel(options =>
+        {
+            options.ListenAnyIP(5000);
+        });
 
         // Add services to the container.
         Log.Logger = new LoggerConfiguration()
@@ -27,7 +33,6 @@ public class Program
 
         var app = builder.Build();
 
-        // Configure the HTTP request pipeline.
         //if (app.Environment.IsDevelopment())
         {
             app.MapOpenApi();
@@ -35,11 +40,12 @@ public class Program
             app.UseSwaggerUI();
         }
 
-        app.UseHttpsRedirection();
+        //app.UseHttpsRedirection();
+        
+        app.UseMiddleware<ExceptionMiddleware>();
+        app.UseMiddleware<LoggingMiddleware>();
 
         app.UseAuthorization();
-
-
         app.MapControllers();
 
         app.Run();

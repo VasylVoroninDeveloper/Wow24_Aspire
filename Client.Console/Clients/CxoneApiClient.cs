@@ -19,8 +19,17 @@ namespace Client.Clients
 
         public async Task<bool> SendTicketAsync(CxoneTicket ticket)
         {
-            var content = new StringContent(JsonSerializer.Serialize(ticket), Encoding.UTF8, "application/json");
-            var response = await _httpClient.PostAsync("/api/cxone/tickets", content);
+
+            var json = JsonSerializer.Serialize(ticket);
+            Console.WriteLine("Sending request to CxNone API: {Url} with body: {Body}", _httpClient.BaseAddress + "TicketData", json);  
+
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            var response = await _httpClient.PostAsync("/TicketData", content);
+
+
+            var responseBody = await response.Content.ReadAsStringAsync();
+            Console.WriteLine("Received response: {StatusCode} - {ResponseBody}", response.StatusCode, responseBody);
+
             return response.IsSuccessStatusCode;
         }
 

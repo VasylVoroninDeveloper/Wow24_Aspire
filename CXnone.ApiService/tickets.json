@@ -1,0 +1,12 @@
+{
+  "TicketId": "TCK-003",
+  "Subject": "Feature request",
+  "Description": "User requested a dark mode feature.",
+  "Created": "2025-06-17T21:24:46.0752877Z",
+  "Priority": "Low",
+  "Tags": [
+    "feature",
+    "ui",
+    "request"
+  ]
+}

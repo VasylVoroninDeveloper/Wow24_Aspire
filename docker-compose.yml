@@ -6,13 +6,17 @@ services:
         context: ./CRM.ApiService
         dockerfile: Dockerfile
     ports:
-     - "8080:8081" 
+     - "57607:8080" 
+ 
   cxnoneappservice: 
     build:
         context: ./CXnone.ApiService
         dockerfile: Dockerfile
     ports:
-     - "5000:5001"
+     - "57606:5000"
+    environment:
+     - ASPNETCORE_URLS=http://+:5000
+
   clientconsole:
     image: client
     build:
@@ -21,4 +25,7 @@ services:
     depends_on:
      - crmappservice
      - cxnoneappservice
+    environment:
+     - CRM_API_URL=http://crmappservice:8080
+     - CXNONE_API_URL=http://cxnoneappservice:5000
 
