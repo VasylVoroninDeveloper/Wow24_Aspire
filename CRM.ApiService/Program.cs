@@ -9,7 +9,6 @@ public class Program
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
-        builder.AddServiceDefaults();
 
         Log.Logger = new LoggerConfiguration()
         .MinimumLevel.Debug()
@@ -29,9 +28,8 @@ public class Program
 
         var app = builder.Build();
 
-        app.MapDefaultEndpoints();
 
-        if (app.Environment.IsDevelopment())
+        //if (app.Environment.IsDevelopment())
         {
             app.MapOpenApi();
             app.UseSwagger();

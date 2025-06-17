@@ -1,0 +1,24 @@
+﻿version: '3.8'
+
+services:
+  crmappservice:
+    build:
+        context: ./CRM.ApiService
+        dockerfile: Dockerfile
+    ports:
+     - "8080:8081" 
+  cxnoneappservice: 
+    build:
+        context: ./CXnone.ApiService
+        dockerfile: Dockerfile
+    ports:
+     - "5000:5001"
+  clientconsole:
+    image: client
+    build:
+      context: ./Client.Console
+      dockerfile: Dockerfile
+    depends_on:
+     - crmappservice
+     - cxnoneappservice
+

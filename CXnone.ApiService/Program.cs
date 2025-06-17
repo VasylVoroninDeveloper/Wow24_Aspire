@@ -8,7 +8,6 @@ public class Program
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
-        builder.AddServiceDefaults();
 
         // Add services to the container.
         Log.Logger = new LoggerConfiguration()
@@ -28,10 +27,8 @@ public class Program
 
         var app = builder.Build();
 
-        app.MapDefaultEndpoints();
-
         // Configure the HTTP request pipeline.
-        if (app.Environment.IsDevelopment())
+        //if (app.Environment.IsDevelopment())
         {
             app.MapOpenApi();
             app.UseSwagger();
