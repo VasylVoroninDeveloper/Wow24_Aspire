@@ -12,9 +12,9 @@ namespace Client.Clients
 
         private readonly HttpClient _httpClient;
 
-        public CrmApiClient(HttpClient httpClient)
+        public CrmApiClient(string url)
         {
-            _httpClient = httpClient;
+            _httpClient = new HttpClient() { BaseAddress = new Uri(url) };
         }
 
         public async Task<List<CrmTicket>> GetTicketsAsync()

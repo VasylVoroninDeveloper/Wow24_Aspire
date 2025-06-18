@@ -12,9 +12,12 @@ namespace Client.Clients
 
         private readonly HttpClient _httpClient;
 
-        public CxoneApiClient(HttpClient httpClient)
+        public CxoneApiClient(string url)
         {
-            _httpClient = httpClient;
+            _httpClient = new HttpClient()
+            {
+                BaseAddress = new Uri(url)
+            };
         }
 
         public async Task<bool> SendTicketAsync(CxoneTicket ticket)
