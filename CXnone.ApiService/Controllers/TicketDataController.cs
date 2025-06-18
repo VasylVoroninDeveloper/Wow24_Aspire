@@ -15,7 +15,8 @@ namespace CXnone.ApiService.Controllers
             this.logger = logger;
         }
 
-        [HttpPost(Name = "SaveTicket")]
+        [HttpPost]
+        [Route("SaveTicket")]
         public IActionResult Post(Ticket ticket)
         {
             if (ticket == null)

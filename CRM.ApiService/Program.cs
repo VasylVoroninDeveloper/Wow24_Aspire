@@ -1,4 +1,4 @@
-
+﻿
 using CRM.ApiService.Middleware;
 using Serilog;
 
@@ -23,7 +23,17 @@ public class Program
         builder.Services.AddOpenApi();
 
         builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen();       
+        builder.Services.AddSwaggerGen();
+
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy("All", policy =>
+            {
+                policy.AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+            });
+        });
 
 
         var app = builder.Build();
@@ -33,7 +43,11 @@ public class Program
         {
             app.MapOpenApi();
             app.UseSwagger();
-            app.UseSwaggerUI();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "CRM APP");
+                c.RoutePrefix = string.Empty; // щоб Swagger був доступний на корені
+            });
         }
 
         app.UseHttpsRedirection();
@@ -43,6 +57,8 @@ public class Program
 
         app.UseAuthorization();
         app.MapControllers();
+
+        app.UseCors("AllowAll");
 
         app.Run();
     }

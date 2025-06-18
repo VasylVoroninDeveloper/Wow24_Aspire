@@ -22,7 +22,8 @@ namespace Client.Clients
             var response = await _httpClient.GetAsync("/TicketData/GetTickets");
 
             var responseBody = await response.Content.ReadAsStringAsync();
-            Console.WriteLine("Received response: {StatusCode} - {ResponseBody}", response.StatusCode, responseBody);
+
+            Console.WriteLine($"Received response: {response.StatusCode} - {responseBody}");
 
             var jsonOptions = new JsonSerializerOptions
             {

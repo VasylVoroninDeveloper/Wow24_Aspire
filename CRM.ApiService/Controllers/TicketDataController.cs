@@ -41,7 +41,8 @@ public class TicketDataController : ControllerBase
         )
     };
 
-    [HttpGet("GetTickets")]
+    [HttpGet]
+    [Route("GetTickets")]
     public IEnumerable<Ticket> Get()
     {
         return GetMockTickets();
